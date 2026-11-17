@@ -5,6 +5,8 @@
 
 一个 [Claude Code](https://claude.com/claude-code) Skill（同样适用于其他支持 SKILL.md 规范的 Agent 工具）。
 
+![通用客户业务相关性评估 · 架构逻辑图](docs/architecture.png)
+
 ---
 
 ## 逻辑链
