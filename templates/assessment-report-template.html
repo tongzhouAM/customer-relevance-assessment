@@ -1,0 +1,531 @@
+<!-- 业务相关性合作评估 HTML 模板（通用版）v1.0.0 | 2026-11-17 -->
+<!-- v1.8.0 变更：品牌化表头（logo + 品牌渐变条 + 报告类型）与品牌化表尾（logo + 元信息 + 保密声明），logo base64 内嵌 -->
+<!-- 商务蓝灰 · 连续滚动 · 卡片式 · 无翻页 · 自包含（logo 已内嵌，无本地图片依赖） -->
+<!-- 使用方法：将 {{占位符}} 替换为实际数据，保存为 .html 在浏览器中打开 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>【公司名称】 · {{客户简称}} · 业务相关性合作评估</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@200;300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== TOKENS (corporate-clean) ===== */
+:root{
+  --bg:#ffffff;--bg-soft:#f5f7fa;--surface:#ffffff;--surface-2:#f0f3f7;
+  --border:rgba(10,37,64,.10);--border-strong:rgba(10,37,64,.18);
+  --text-1:#0a2540;--text-2:#425466;--text-3:#8898aa;
+  --accent:#0a2540;--accent-2:#1d4ed8;--accent-3:#64748b;
+  --good:#0e9f6e;--warn:#d97706;--bad:#dc2626;
+  --grad:linear-gradient(135deg,#0a2540,#1d4ed8);
+  --grad-soft:linear-gradient(135deg,#f0f4fb,#e4ecf7);
+  --radius:8px;--radius-lg:14px;
+  --shadow:0 1px 3px rgba(10,37,64,.06),0 4px 12px rgba(10,37,64,.04);
+  --shadow-lg:0 6px 20px rgba(10,37,64,.08),0 20px 50px rgba(10,37,64,.06);
+  --font-sans:'Inter','Noto Sans SC',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --content-width:1100px;
+}
+
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;padding:0;background:var(--bg);color:var(--text-1);
+  font-family:var(--font-sans);font-weight:400;line-height:1.65;
+  -webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+img,svg{max-width:100%;display:block}
+
+/* ===== HEADER ===== */
+.page-header{
+  position:sticky;top:0;z-index:100;background:rgba(255,255,255,.88);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  font-size:13px;font-weight:600;color:var(--text-2);letter-spacing:.04em;
+}
+.brand-bar{height:3px;background:linear-gradient(90deg,#183060 0%,#004890 30%,#0060c0 62%,#0090c0 100%)}
+.page-header .inner{max-width:var(--content-width);margin:0 auto;padding:11px 40px;display:flex;align-items:center;justify-content:space-between}
+.header-brand{display:flex;align-items:center;gap:11px;color:var(--text-1)}
+.header-logo{width:30px;height:30px;display:block;flex-shrink:0}
+.header-title{display:flex;flex-direction:column;line-height:1.25}
+.header-title .brand-name{font-weight:800;font-size:14px;letter-spacing:-.01em;color:var(--text-1)}
+.header-title .brand-sub{font-size:10px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--text-3)}
+.header-divider{width:1px;height:26px;background:var(--border-strong);margin:0 2px;flex-shrink:0}
+.header-report-type{font-size:12.5px;font-weight:600;color:var(--text-2)}
+.page-header nav{display:flex;gap:24px}
+.page-header nav a{color:var(--text-3);text-decoration:none;font-weight:500;font-size:12px;transition:color .2s}
+.page-header nav a:hover{color:var(--accent-2)}
+
+/* ===== HERO ===== */
+.hero{position:relative;overflow:hidden;background:var(--grad-soft);padding:120px 0 100px}
+.hero::before{content:"";position:absolute;right:-200px;top:-160px;width:700px;height:700px;border-radius:50%;background:var(--grad);filter:blur(14px);opacity:.22}
+.hero::after{content:"";position:absolute;left:-140px;bottom:-200px;width:550px;height:550px;border-radius:50%;background:linear-gradient(135deg,#1d4ed8,#64748b);filter:blur(12px);opacity:.12}
+.hero-inner{max-width:var(--content-width);margin:0 auto;padding:0 40px;position:relative;z-index:1}
+.hero-kicker{font-size:13px;font-weight:700;color:var(--accent-2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-size:62px;line-height:1.08;font-weight:800;letter-spacing:-.035em;margin:0 0 20px;color:var(--text-1)}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:19px;line-height:1.65;color:var(--text-2);max-width:56ch;margin-bottom:48px}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap}
+.hero-stat .val{font-size:36px;font-weight:900;letter-spacing:-.04em;color:var(--accent);line-height:1.1}
+.hero-stat .lbl{font-size:13px;color:var(--text-3);margin-top:4px}
+.hero-meta{font-size:12px;color:var(--text-3);margin-top:48px;padding-top:20px;border-top:1px solid var(--border)}
+
+/* ===== SECTION ===== */
+.section{padding:80px 0}
+.section-alt{background:var(--bg-soft)}
+.section-inner{max-width:var(--content-width);margin:0 auto;padding:0 40px}
+.section-kicker{font-size:12px;font-weight:700;color:var(--accent-2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:40px;line-height:1.15;font-weight:700;letter-spacing:-.025em;margin:0 0 14px}
+.section-subtitle{font-size:18px;line-height:1.65;color:var(--text-2);max-width:60ch;margin-bottom:40px}
+
+/* ===== TYPOGRAPHY ===== */
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.dim{color:var(--text-2)}.dim2{color:var(--text-3)}
+
+/* ===== LAYOUT ===== */
+.row{display:flex;gap:28px;align-items:center}
+.row-start{display:flex;gap:28px;align-items:flex-start}
+.row-wrap{display:flex;gap:28px;flex-wrap:wrap}
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.fill{flex:1}
+.mt-s{margin-top:8px}.mt-m{margin-top:18px}.mt-l{margin-top:32px}.mt-xl{margin-top:56px}
+.mb-s{margin-bottom:8px}.mb-m{margin-bottom:18px}.mb-l{margin-bottom:32px}
+.tc{text-align:center}
+.col-gap-40{column-gap:40px}.col-gap-48{column-gap:48px}
+
+/* ===== CARDS ===== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow)}
+.card-soft{background:var(--surface-2);border:1px solid var(--border)}
+.card-accent{border-left:3px solid var(--accent-2)}
+.card-good{border-left:3px solid var(--good)}
+.card-warn{border-left:3px solid var(--warn)}
+.card-bad{border-left:3px solid var(--bad)}
+.card-top-accent-blue{border-top:3px solid var(--accent-2)}
+.card-top-accent-warn{border-top:3px solid var(--warn)}
+.card-top-accent-good{border-top:3px solid var(--good)}
+
+/* ===== PILLS ===== */
+.pill{display:inline-block;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.pill-blue{background:color-mix(in srgb,var(--accent-2) 10%,transparent);color:var(--accent-2);border-color:color-mix(in srgb,var(--accent-2) 24%,transparent)}
+.pill-green{background:color-mix(in srgb,var(--good) 10%,transparent);color:var(--good);border-color:color-mix(in srgb,var(--good) 24%,transparent)}
+.pill-warn{background:color-mix(in srgb,var(--warn) 10%,transparent);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 24%,transparent)}
+.pill-red{background:color-mix(in srgb,var(--bad) 10%,transparent);color:var(--bad);border-color:color-mix(in srgb,var(--bad) 24%,transparent)}
+
+/* ===== TABLES ===== */
+.data-table{width:100%;border-collapse:collapse;font-size:14px}
+.data-table th{text-align:left;padding:10px 16px;font-weight:600;color:var(--text-2);font-size:11px;text-transform:uppercase;letter-spacing:.10em;border-bottom:2px solid var(--border)}
+.data-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table .highlight td{background:var(--grad-soft)}
+
+/* ===== TIMELINE ===== */
+.tl{position:relative;margin-top:36px}
+.tl::before{content:"";position:absolute;left:0;right:0;top:42px;height:2px;background:var(--border)}
+.tl-row{display:grid;grid-template-columns:repeat({{时间轴节点数}},1fr);gap:14px}
+.tl-item{position:relative;padding-top:70px;text-align:center}
+.tl-dot{position:absolute;top:32px;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:var(--accent-2);border:4px solid var(--bg);box-shadow:0 0 0 2px var(--accent-2)}
+.tl-year{font-size:12px;font-weight:700;color:var(--accent-2);letter-spacing:.1em;position:absolute;top:2px;left:0;right:0}
+.tl-title{font-size:14px;font-weight:600;color:var(--text-1);margin-bottom:2px}
+.tl-desc{font-size:12px;color:var(--text-3)}
+
+/* ===== MATRIX TABLE ===== */
+.matrix-table{width:100%;border-collapse:collapse;font-size:13px}
+.matrix-table th{text-align:center;padding:11px 14px;font-weight:700;color:var(--text-1);font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:var(--surface-2);border:1px solid var(--border)}
+.matrix-table th:first-child{text-align:left}
+.matrix-table td{text-align:center;padding:12px 14px;border:1px solid var(--border);font-weight:500}
+.matrix-table td:first-child{text-align:left;font-weight:600}
+.tier-a{background:color-mix(in srgb,var(--good) 6%,transparent);color:var(--good)}
+.tier-b{background:color-mix(in srgb,var(--warn) 6%,transparent);color:var(--warn)}
+.tier-c{background:var(--surface-2);color:var(--text-3)}
+
+/* ===== SCORE BARS ===== */
+.score-row{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.score-label{width:130px;font-size:13px;font-weight:600;color:var(--text-2);text-align:right;flex-shrink:0}
+.score-bar-bg{flex:1;height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:4px;background:var(--grad)}
+.score-num{width:60px;font-size:12px;font-weight:700;color:var(--text-1)}
+
+/* ===== HIGHLIGHT BOX ===== */
+.highlight-box{padding:28px 32px;border-radius:var(--radius-lg)}
+.highlight-box.grad-bg{background:var(--grad);color:#fff}
+.highlight-box.grad-bg .dim{color:rgba(255,255,255,.85)}
+.highlight-box.grad-bg h4{color:#fff}
+
+/* ===== ACTION CARDS ===== */
+.action-card{padding:28px;border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow);border:1px solid var(--border)}
+.action-card h4{font-size:18px;margin-bottom:6px}
+.action-card ul{font-size:13px;color:var(--text-2);padding-left:18px;line-height:2;margin:0}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== FOOTER ===== */
+.page-footer{background:linear-gradient(180deg,#0a2540 0%,#061a30 100%);color:rgba(255,255,255,.72);font-size:13px}
+.footer-brand{display:flex;align-items:center;gap:18px;padding:40px 0 26px;border-bottom:1px solid rgba(255,255,255,.12)}
+.footer-logo{width:46px;height:46px;display:block;flex-shrink:0}
+.footer-brand-text .brand-name{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.footer-brand-text .brand-sub{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:3px}
+.footer-meta{display:flex;gap:14px 36px;flex-wrap:wrap;padding:22px 0;font-size:12.5px;color:rgba(255,255,255,.55)}
+.footer-meta strong{color:rgba(255,255,255,.88);font-weight:600}
+.footer-legal{padding:18px 0 36px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;line-height:1.9;color:rgba(255,255,255,.38)}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:900px){
+  .hero h1{font-size:38px}.section-title{font-size:30px}
+  .g2,.g3,.g4{grid-template-columns:1fr}.tl-row{grid-template-columns:repeat(3,1fr)}
+  .hero-stats{gap:24px}.hero-stat .val{font-size:28px}
+  .row,.row-start{flex-direction:column}.page-header nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="page-header">
+  <div class="brand-bar"></div>
+  <div class="inner">
+    <div class="header-brand">
+      <img class="header-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' rx='8' fill='%231d4ed8'/%3E%3Cpath d='M10 30 L16 22 L22 32 L28 18 L34 28 L38 24' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="业务相关性评估">
+      <div class="header-title">
+        <span class="brand-name">业务相关性评估</span>
+        <span class="brand-sub">Peak Performance Technology</span>
+      </div>
+      <span class="header-divider"></span>
+      <span class="header-report-type">{{客户简称}} · 客户合作评估</span>
+    </div>
+    <nav>
+      <a href="#summary">核心结论</a>
+      <a href="#profile">公司画像</a>
+      <a href="#scenarios">场景分析</a>
+      <a href="#feasibility">可行性</a>
+      <a href="#plan">行动方案</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">客户可行性评估 · {{YYYY年MM月}}</div>
+    <h1>{{客户全称}}<br><span>业务相关性合作评估</span></h1>
+    <p class="hero-desc">{{一句话核心判断}}。核心切入点：{{P0场景}}。</p>
+    <div class="hero-stats">
+      {{#each hero_stats}}
+      <div class="hero-stat"><div class="val">{{value}}</div><div class="lbl">{{label}}</div></div>
+      {{/each}}
+    </div>
+    <div class="hero-meta">业务相关性评估 · 【公司名称】 &nbsp;|&nbsp; 报告日期 {{YYYY-MM-DD}} &nbsp;|&nbsp; 内部参考资料</div>
+  </div>
+</section>
+
+<!-- ===== 1. EXECUTIVE SUMMARY ===== -->
+<section class="section" id="summary">
+  <div class="section-inner">
+    <div class="section-kicker">Executive Summary</div>
+    <h2 class="section-title">核心结论</h2>
+    <p class="section-subtitle">{{一句话核心结论段落}}</p>
+    <div class="grid g2 mt-l">
+      <!-- {{#each key_findings}} -->
+      <div class="card {{card_class}} reveal">
+        <h4 style="color:{{heading_color}};margin-top:0">{{emoji}} {{title}}</h4>
+        <p class="dim" style="margin:0">{{description}}</p>
+      </div>
+      <!-- {{/each}} -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. 公司画像 ===== -->
+<section class="section section-alt" id="profile">
+  <div class="section-inner">
+    <div class="section-kicker">Company Profile</div>
+    <h2 class="section-title">公司画像</h2>
+    <!-- 详情表格：横向全宽 -->
+    <table class="data-table mt-l reveal">
+      <!-- {{#each company_facts}} -->
+      <tr{{#if highlight}} class="highlight"{{/if}}>
+        <td style="width:110px;font-weight:600;color:var(--text-2);font-size:12px;text-transform:uppercase;letter-spacing:.06em">{{label}}</td>
+        <td>{{{value}}}</td>
+      </tr>
+      <!-- {{/each}} -->
+    </table>
+    <!-- 三卡片：横向并列 -->
+    <div class="grid g3 mt-l reveal">
+      <div class="card card-soft">
+        <h4 style="margin-top:0">🏭 主营产品</h4>
+        <div class="row-wrap" style="gap:8px">
+          <!-- {{#each product_tags}} -->
+          <span class="pill {{pill_class}}">{{name}}</span>
+          <!-- {{/each}} -->
+        </div>
+      </div>
+      <div class="card card-soft">
+        <h4 style="margin-top:0">🌐 产品应用领域</h4>
+        <p class="dim" style="font-size:13px;margin:0">{{application_fields}}</p>
+      </div>
+      <div class="card card-soft">
+        <h4 style="margin-top:0">👥 核心客户</h4>
+        <p class="dim" style="font-size:13px;margin:0">{{key_customers}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. 发展时间线 ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker">Timeline</div>
+    <h2 class="section-title">{{时间轴标题}}</h2>
+    <div class="tl reveal">
+      <div class="tl-row">
+        <!-- {{#each timeline_events}} -->
+        <div class="tl-item"><div class="tl-year">{{year}}</div><div class="tl-dot"></div><div class="tl-title">{{title}}</div><div class="tl-desc">{{desc}}</div></div>
+        <!-- {{/each}} -->
+      </div>
+    </div>
+    <div class="card card-accent mt-xl reveal" style="max-width:780px">
+      <h4 style="margin-top:0">📌 关键判断</h4>
+      <p class="dim" style="margin:0">{{timeline_judgment}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. 生产工艺与 AI 关联 ===== -->
+<section class="section section-alt" id="scenarios">
+  <div class="section-inner">
+    <div class="section-kicker">Process Analysis</div>
+    <h2 class="section-title">业务流程与方案能力关联分析</h2>
+    <table class="data-table mt-l reveal">
+      <tr><th>流程环节</th><th style="width:240px">说明</th><th style="text-align:center;width:100px">人工/传统手段</th><th style="text-align:center;width:110px">方案关联度</th></tr>
+      <!-- {{#each process_rows}} -->
+      <tr{{#if highlight}} class="highlight"{{/if}}>
+        <td><strong>{{name}}</strong></td><td>{{desc}}</td>
+        <td style="text-align:center">{{has_human_ear}}</td>
+        <td style="text-align:center"><span class="pill {{pill_class}}">{{ai_relevance}}</span></td>
+      </tr>
+      <!-- {{/each}} -->
+    </table>
+  </div>
+</section>
+
+<!-- ===== 5. 场景匹配矩阵 ===== -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-kicker">Scenario Matrix</div>
+    <h2 class="section-title">场景匹配评估</h2>
+    <table class="matrix-table mt-l reveal">
+      <tr><th style="width:160px">应用场景</th><th>技术匹配度</th><th>需求急迫度</th><th>客户内规模</th><th>综合评级</th><th>行动建议</th></tr>
+      <!-- {{#each scenario_rows}} -->
+      <tr>
+        <td><strong>{{name}}</strong></td>
+        <td class="{{tech_tier}}">{{tech_score}}</td>
+        <td class="{{urgency_tier}}">{{urgency_score}}</td>
+        <td>{{scale}}</td>
+        <td class="{{rating_tier}}"><strong>{{rating}}</strong></td>
+        <td style="text-align:left;font-size:12px">{{action}}</td>
+      </tr>
+      <!-- {{/each}} -->
+    </table>
+  </div>
+</section>
+
+<!-- ===== 6. P0 场景深度展开 ===== -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-kicker">Core Scenario</div>
+    <h2 class="section-title">{{P0场景名称}}</h2>
+    <p class="section-subtitle">{{P0场景简介}}</p>
+    <div class="grid g2 reveal">
+      <!-- {{#each p0_cards}} -->
+      <div class="card">
+        <h4 style="color:{{heading_color}};margin-top:0">{{title}}</h4>
+        <p class="dim" style="margin:0">{{content}}</p>
+      </div>
+      <!-- {{/each}} -->
+    </div>
+    <div class="highlight-box grad-bg mt-l reveal">
+      <h4 style="margin-top:0">🎯 {{diff_box_title}}</h4>
+      <p class="dim" style="margin:0;font-size:15px">{{diff_box_content}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. 合作可行性 ===== -->
+<section class="section" id="feasibility">
+  <div class="section-inner">
+    <div class="section-kicker">Feasibility Assessment</div>
+    <h2 class="section-title">合作可行性综合评估</h2>
+    <div class="grid g2 mt-l">
+      <div class="reveal">
+        <h4 style="color:var(--good);margin-bottom:16px">✅ 有利因素</h4>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <!-- {{#each pros}} -->
+          <div class="card card-good"><strong>{{title}}</strong><br><span class="dim" style="font-size:13px">{{detail}}</span></div>
+          <!-- {{/each}} -->
+        </div>
+      </div>
+      <div class="reveal">
+        <h4 style="color:var(--bad);margin-bottom:16px">⚠️ 不利因素</h4>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <!-- {{#each cons}} -->
+          <div class="card card-bad"><strong>{{title}}</strong><br><span class="dim" style="font-size:13px">{{detail}}</span></div>
+          <!-- {{/each}} -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. 综合评分 + 决策链 ===== -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-kicker">Scorecard</div>
+    <h2 class="section-title">六维综合评分</h2>
+    <!-- 评分条：全宽 -->
+    <div class="reveal mt-l" style="max-width:780px">
+      <!-- {{#each score_rows}} -->
+      <div class="score-row">
+        <span class="score-label">{{#if bold}}<strong>{{/if}}{{label}}{{#if bold}}</strong>{{/if}}</span>
+        <div class="score-bar-bg"><div class="score-bar-fill" style="width:{{percent}}%"></div></div>
+        <span class="score-num">{{stars}}</span>
+      </div>
+      <!-- {{/each}} -->
+      <p class="dim" style="font-size:12px;margin-top:16px">{{score_note}}</p>
+    </div>
+    <!-- 决策链 + 接触路径：下方双栏 -->
+    <div class="grid g2 mt-l reveal">
+      <div class="card card-accent">
+        <h4 style="margin-top:0">📋 决策链推测</h4>
+        <div style="font-size:13px;line-height:2;color:var(--text-2)">
+          <!-- {{#each decision_chain}} -->
+          <strong>{{role}}</strong>{{#if location}} <span style="color:var(--text-3)">{{location}}</span>{{/if}}<br>
+          {{#if annotation}}<span style="color:var(--text-3);font-size:11px">&nbsp;&nbsp;&nbsp;↓ {{annotation}}</span><br>{{/if}}
+          <!-- {{/each}} -->
+        </div>
+      </div>
+      <div class="card card-good">
+        <h4 style="margin-top:0;color:var(--good)">💡 建议接触路径</h4>
+        <p class="dim" style="font-size:13px;margin:0">{{contact_path}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. 行动方案 ===== -->
+<section class="section" id="plan">
+  <div class="section-inner">
+    <div class="section-kicker">Action Plan</div>
+    <h2 class="section-title">短中长期行动方案</h2>
+    <div class="grid g3 mt-l">
+      <!-- {{#each action_phases}} -->
+      <div class="action-card {{card_class}} reveal">
+        <span class="pill {{pill_class}} mb-m">{{phase_label}}</span>
+        <h4>{{phase_title}}</h4>
+        <ul>
+          <!-- {{#each items}} -->
+          <li>{{text}}</li>
+          <!-- {{/each}} -->
+          <li><strong>{{goal}}</strong></li>
+        </ul>
+      </div>
+      <!-- {{/each}} -->
+    </div>
+    <div class="card card-soft mt-l reveal">
+      <h4 style="margin-top:0">⚡ 立即行动项</h4>
+      <div class="row-start" style="gap:32px;margin-top:16px">
+        <!-- {{#each immediate_actions}} -->
+        <div class="fill">
+          <p class="eyebrow">{{priority}} · {{deadline}}</p>
+          <p style="margin:6px 0 0;font-weight:600;font-size:15px">{{action}}</p>
+        </div>
+        <!-- {{/each}} -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10. 风险与收尾 ===== -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-kicker">Key Takeaway</div>
+    <h2 class="section-title">{{takeaway_title}}</h2>
+    <p class="section-subtitle">{{takeaway_desc}}</p>
+    <div class="grid g3 mt-l">
+      <div class="card reveal">
+        <h4 style="color:var(--accent-2);margin-top:0">🔑 关键成功因子</h4>
+        <ul style="font-size:13px;color:var(--text-2);padding-left:16px;line-height:2.2;margin:0">
+          <!-- {{#each success_factors}} -->
+          <li>{{text}}</li>
+          <!-- {{/each}} -->
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h4 style="color:var(--warn);margin-top:0">🚧 主要风险</h4>
+        <ul style="font-size:13px;color:var(--text-2);padding-left:16px;line-height:2.2;margin:0">
+          <!-- {{#each risks}} -->
+          <li>{{text}}</li>
+          <!-- {{/each}} -->
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h4 style="color:var(--good);margin-top:0">📈 如果成功</h4>
+        <ul style="font-size:13px;color:var(--text-2);padding-left:16px;line-height:2.2;margin:0">
+          <!-- {{#each if_success}} -->
+          <li>{{text}}</li>
+          <!-- {{/each}} -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="page-footer">
+  <div class="section-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' rx='8' fill='%231d4ed8'/%3E%3Cpath d='M10 30 L16 22 L22 32 L28 18 L34 28 L38 24' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" alt="业务相关性评估">
+      <div class="footer-brand-text">
+        <div class="brand-name">【公司名称】 · 业务相关性评估</div>
+        <div class="brand-sub">客户业务相关性分析 · 双版本报告体系</div>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>报告日期 <strong>{{YYYY-MM-DD}}</strong></span>
+      <span>报告类型 <strong>客户合作可行性评估 · {{客户简称}}</strong></span>
+      <span>调研深度 <strong>{{搜索层数}} 层搜索 / {{来源数量}}+ 来源</strong></span>
+      <span>置信度 <strong>{{置信度}}（{{置信度说明}}）</strong></span>
+    </div>
+    <div class="footer-legal">
+      本报告为【公司名称】内部参考资料，基于公开信息与方案能力评估编制，仅供内部决策使用。报告含商业机密与客户敏感信息，未经书面授权不得对外传播、复制或摘录。<br>
+      © 2026 【公司名称】 · 业务相关性评估 · 保留所有权利
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ===== SCROLL REVEAL ===== */
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.12});
+  reveals.forEach(function(el){ observer.observe(el); });
+
+  /* ===== SMOOTH ANCHOR SCROLL (offset for sticky header) ===== */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var t = document.querySelector(this.getAttribute('href'));
+      if(t){
+        var top = t.getBoundingClientRect().top + window.pageYOffset - 60;
+        window.scrollTo({top:top,behavior:'smooth'});
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+customer-relevance-assessment v1.0.0
+作者：tongzhouAM
+创建日期：2026-11-17
+说明：通用全行业版——自声学垂直版（acoustic-ai-customer-assessment v1.0.0，源自内部 v1.7.1）泛化：
+「我方方案」从硬编码改为输入项（vendor-profile 画像），声学场景库蒸馏为八大元模式通用方法论
